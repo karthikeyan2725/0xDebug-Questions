@@ -1,4 +1,5 @@
-### Question 1: 
+> 🤖 : The answers to question with this emoji is only known to those who are *well versed* in C.
+### Question 1 🤖: 
 Go through the following code, and Choose the option.
 
     #include <stdio.h>
@@ -25,7 +26,7 @@ Go through the following code, and Choose the option.
 
 `Output`: {1,2}
 
-`Bug`: In the above code, the size of array pointer(8) is used instead of size of actual array, and since the array size is divided by the size of int type(4), only 2 elements are printed.
+`Bug`: In the above code, the size of array pointer (8 Bytes) is used instead of size of actual array, and since the array size is divided by the size of int type(4), only 2 elements are printed.
 
 `Debug`: The size of the integer array must be passed from outside 
 
@@ -46,7 +47,7 @@ Go through the following code, and Choose the option.
     }
 `output`: {1,2,3,4,5}
 
-### Question 2 
+### Question 2  🤖:
 
     #include<stdio.h>
     void _start(){}
@@ -61,9 +62,9 @@ Go through the following code, and Choose the option.
 3. Compilation Error
 4. Segmentation Fault
 
-`Bug`: _start() function is an initialization function that executes before main(). It is already declared, so you get an compilation error.
+`Bug`: _start() function is an initialization function that executes before main(), behind the scenes. It is already declared, so you get a compilation error.
 
-### Question 3 - Sneaky Fork
+### Question 3 - Sneaky Fork 🤖:
     #include<stdio.h>
     #include<unistd>
     void main(){
@@ -75,8 +76,8 @@ Go through the following code, and Choose the option.
 2. prints ThisIsCrypteraThisIsCryptera
 
 `Bug`:
-printf string is buffered until \n is encountered. So, upon fork, 2 of 
-### Question 4 :
+printf string is buffered until `\n` is encountered. So, upon fork, another buffer containing ThisIsCryptera is created. Hence the string will be printed *twice*.
+### Question 4 🤖:
 
     #include<stdio.h>
     #define MAIN void main() CODE
@@ -86,11 +87,11 @@ printf string is buffered until \n is encountered. So, upon fork, 2 of
 `options`:
 1. Compilation error: CODE undeclared
 2. Compilation error: undefined reference to main
-3. Prints This is main
-4. 
-`bug`: There is no bug, because the order of execution of the preprocessors does not matter.
+3. Prints "This is main"
+4. [choice 4]
+`ans`: There is no bug, because the order of execution of the preprocessors does not matter. Hence 3 is the correct answer.
 
-### Question 5:
+### Question 5 🤖:
     void main(){
         int a = 0;
         if(a=++a){
@@ -106,6 +107,6 @@ printf string is buffered until \n is encountered. So, upon fork, 2 of
 3. Else with 0
 4. Else with 1
 
-`Ans`: If with 1
+`Ans`: **If with 1**. In the expression, `a = ++a` the value that is assigned to `a` will be returned. since a is incremented to `1`, `if(1)` will be executed.
 ### Resources:
 1. https://www.geeksforgeeks.org/common-memory-pointer-related-bug-in-c-programs/ - `1`
