@@ -1,6 +1,6 @@
 > 🤖 : The answers to question with this emoji is only known to those who are *well versed* in C.
 > `-` : avoid selecting these questions if possible 
-## Bugs specific to Language (7):
+## Bugs specific to Language (5):
 ### Question 1 🤖: 
 
 Go through the following code, and Choose the option.
@@ -132,42 +132,32 @@ Consider the following function function `Search` that takes an  array `a`, the 
  But `Search` is not able to produce the correct output.
 
 ```c
-    int Search(int a[], int start, int last, int item){
-        int mid;
-        if(last >= start){
-            mid = (start + last)/2;
-            if(a[mid] == item){
-                        return mid+1;
-            }
-            else if(a[mid] < item){
-                return Search(a,start,mid+1,item);
-            }
-            else{
-                return Search(a,mid-1,last,item);
-            }
+int Search(int a[], int start, int last, int item){
+    int mid;
+    if(last >= start){
+        mid = (start + last)/2;
+        if(a[mid] == item){
+                    return mid+1;
         }
-        return -1;
+        else if(a[mid] < item){
+            return Search(a,start,mid+1,item);
+        }
+        else{
+            return Search(a,mid-1,last,item);
+        }
     }
+    return -1;
+}
 ```
 
-which of the following code snippets can be replaced to get the expected result?
-1.
-2.
-3. Replace the if-else block with
-```c
-    if(a[mid] == item){
-       return mid;
-    }
-    else if(a[mid] < item){
-       return Search(a,mid+1,last,item); 
-    }
-    else{
-       return Search(a,start,mid-1,item); 
-    }
-```
-4. 
+select all the lines needs to be changed to get a correct output for this search function?
 
-`Answer`: 3
+1. line 9
+2. line 2
+3. line 12
+4. line 5
+
+`Answer`: 1 and 3
 
 #### Correct code:
 ```c
@@ -187,30 +177,37 @@ int Search(int a[], int start, int last, int item){
 ```
 ### Question 2:
 The following code snippet to Check whether a given year is leap year or not.
-
-For example: 
-
+`For example: `
 If the user enters the year 2020 , then the output will be **2020 is a Leap Year**.
 If the user enters the year 2023 , then the output will be **2023 is not a Leap Year**.
 
-The code snippets accept a single argument – `year` representing the number entered by the user.
-
-Find the one that produces the correct output:
 ```c
-int main (){
+#include<stdio.h>
+int main ()
+{
     int year;
     scanf("%d",&year);
-    if(year % 400 == 0)                      
+
+    if(year % 200 == 0)
     printf("%d is a Leap Year",year);
-    else if(year % 4 == 0 && year % 100 != 0)
+
+    else if(year % 4 == 0 && year % 200 != 0)
     printf("%d is a Leap Year",year);
+
     else
     printf("%d is not a Leap Year",year);
 
     return 0;
 }
 ```
-`Ans`:
+Find out line containing the logical error and select the option that must be replaced with that line
+
+1. if (year % 400 == 0)
+2. else if (year % 200 == 0 && year % 4 == 0)
+3. if (year % 4 == 0)
+4. if (year % 100 == 0)
+
+`Ans`: 1
 
 ### Question 3:
 The following code snippet To Find out the Sum of Digits of a Number.
@@ -427,38 +424,29 @@ To make the above code work properly, how many changes has to be made.
 Graph
 ```c
 
-void DFS(struct Graph* graph, int start) {
-    int* visited = (int*)malloc(graph->V * sizeof(int));
-    for (int i = 0; i < graph->V; i++) {
-        visited[i] = 0;
-    }
-    int* stack = (int*)malloc(graph->V * sizeof(int));
+void DFS(int start) {
+    int visited[MAX_VERTICES] = {0};
+    int stack[MAX_VERTICES];
     int top = -1;
-
     stack[++top] = start;
 
     while (top != -1) {
         int current = stack[top--];
-
         if (!visited[current]) {
             printf("%d ", current);
             visited[current] = 1;
         }
-
-        for (int neighbor = 0; neighbor < graph->V; neighbor++) {
-            if (graph->adj[current][neighbor] && !visited[neighbor]) {
+        for (int neighbor = 0; neighbor < V; ++neighbor) {
+            if (adj[current][neighbor] && !visited[neighbor]) {
                 stack[++top] = neighbor;
             }
         }
     }
-
-    free(visited);
-    free(stack);
 }
 ```
 What change would transform Depth-First Search (DFS) into Breadth-First Search (BFS)?
 
-1. Replace the stack with a queue .
+1. Replace the stack with a queue.
 2. Change stack push to stack insert.
 3. Modify the DFS function to use recursion instead of a stack.
 4. Add an additional check to ensure the visited nodes are explored in a specific order.
