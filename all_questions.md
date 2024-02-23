@@ -52,7 +52,7 @@ int main() {
 ```
 `output`: {1,2,3,4,5}
 
-### - Question 2  🤖:
+###  Question 2  🤖:
 ```c
 #include<stdio.h>
 void _start(){}
@@ -102,7 +102,7 @@ printf string is buffered until `\n` is encountered. So, upon fork, another buff
 
 `ans`: There is no bug, because the order of execution of the preprocessors does not matter. Hence 3 is the correct answer.
 
-### - Question 5 🤖:
+### Question 5 🤖:
 ```c
     void main(){
         int a = 0;
@@ -171,21 +171,21 @@ which of the following code snippets can be replaced to get the expected result?
 
 #### Correct code:
 ```c
-    int Search(int a[], int start, int last, int item){
-        int mid;
-        if(a[mid] == item){
-            return mid;
-        }
-        else if(a[mid] < item){
-            return Search(a,mid+1,last,item); 
-        }
-        else{
-            return Search(a,start,mid-1,item); 
-        }
-        return -1;
+int Search(int a[], int start, int last, int item){
+    int mid;
+    if(a[mid] == item){
+        return mid;
     }
+    else if(a[mid] < item){
+        return Search(a,mid+1,last,item); 
+    }
+    else{
+        return Search(a,start,mid-1,item); 
+    }
+    return -1;
+}
 ```
-## Question 2:
+### Question 2:
 The following code snippet to Check whether a given year is leap year or not.
 
 For example: 
@@ -196,44 +196,23 @@ If the user enters the year 2023 , then the output will be **2023 is not a Leap 
 The code snippets accept a single argument – `year` representing the number entered by the user.
 
 Find the one that produces the correct output:
-1. OPTION 1
-2.
 ```c
-    int main (){
-        int year;
-        scanf("%d",&year);
-        if(year % 400 == 0)                      
-        printf("%d is a Leap Year",year);
-        else if(year % 4 == 0 && year % 100 != 0)
-        printf("%d is a Leap Year",year);
-        else
-        printf("%d is not a Leap Year",year);
+int main (){
+    int year;
+    scanf("%d",&year);
+    if(year % 400 == 0)                      
+    printf("%d is a Leap Year",year);
+    else if(year % 4 == 0 && year % 100 != 0)
+    printf("%d is a Leap Year",year);
+    else
+    printf("%d is not a Leap Year",year);
 
-        return 0;
-    }
+    return 0;
+}
 ```
-3. Option 3
-4. 
+`Ans`:
 
-```c
-    #include<stdio.h>
-    int main ()
-    {
-        int year;
-        scanf("%d",&year);
-        if(year % 200 == 0)
-        printf("%d is a Leap Year",year);
-        else if(year % 4 == 0 && year % 200 != 0)
-        printf("%d is a Leap Year",year);
-        else
-        printf("%d is not a Leap Year",year);
-        return 0;
-    }
-```
-
-`Ans`: 2
-
-## Question 3:
+### Question 3:
 The following code snippet To Find out the Sum of Digits of a Number.
 
 ```c
@@ -264,26 +243,26 @@ The code snippet fails to give the desired results for some test cases due to lo
  Note: `Only select them if those changes are necessary`
 
 1. Replace line 8 with sum = sum + num % 10;
-2. 
+2. Replace line 8 with sum = sum + num;
 3. Replace line 9 with num = num / 10;
-4.
+4. No Changes has to be done
 
 `Ans`: 1 and 3. Line 8 has a syntactical error, with `=+` instead of `+=`, and in line 9, `%` is replaced by `/` (wrong logic).
 
 #### Corrected Code:
 ```c
-    int main ()
-    {
-        int num, sum = 0;
-        printf("Enter a number: ");
-        scanf("%d",&num);
-        while(num!=0){
-            sum = sum + num % 10; <---
-            num = num / 10; <---
-        }
-        printf("Sum: %d",sum);
-        return 0;
+int main ()
+{
+    int num, sum = 0;
+    printf("Enter a number: ");
+    scanf("%d",&num);
+    while(num!=0){
+        sum = sum + num % 10; <---
+        num = num / 10; <---
     }
+    printf("Sum: %d",sum);
+    return 0;
+}
 ```
 ### Question 4:
 The below question is to check, can we able to reach the last element of the array by starting from 0th index of the array. 
@@ -445,40 +424,14 @@ To make the above code work properly, how many changes has to be made.
 `Ans`: 2
 
 ### Question 10:
+Graph
 ```c
-#include <stdio.h>
-#include <stdlib.h>
-
-#define MAX_VERTICES 100
-
-struct Graph {
-    int V;
-    int** adj;
-};
-
-struct Graph* createGraph(int V) {
-    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
-    graph->V = V;
-    graph->adj = (int**)malloc(V * sizeof(int*));
-    for (int i = 0; i < V; i++) {
-        graph->adj[i] = (int*)malloc(V * sizeof(int));
-        for (int j = 0; j < V; j++) {
-            graph->adj[i][j] = 0;
-        }
-    }
-    return graph;
-}
-
-void addEdge(struct Graph* graph, int u, int v) {
-    graph->adj[u][v] = 1;
-}
 
 void DFS(struct Graph* graph, int start) {
     int* visited = (int*)malloc(graph->V * sizeof(int));
     for (int i = 0; i < graph->V; i++) {
         visited[i] = 0;
     }
-
     int* stack = (int*)malloc(graph->V * sizeof(int));
     int top = -1;
 
@@ -502,46 +455,17 @@ void DFS(struct Graph* graph, int start) {
     free(visited);
     free(stack);
 }
-
-int main() {
-    struct Graph* g = createGraph(4);
-
-    addEdge(g, 0, 1);
-    addEdge(g, 0, 2);
-    addEdge(g, 1, 2);
-    addEdge(g, 2, 0);
-    addEdge(g, 2, 3);
-    addEdge(g, 3, 3);
-
-    printf("Depth First Traversal (starting from vertex 2): ");
-    DFS(g, 2);
-
-    free(g);
-    return 0;
-}
 ```
+What change would transform Depth-First Search (DFS) into Breadth-First Search (BFS)?
+
 1. Replace the stack with a queue .
 2. Change stack push to stack insert.
 3. Modify the DFS function to use recursion instead of a stack.
 4. Add an additional check to ensure the visited nodes are explored in a specific order.
 
 ### Question 11:
+Read through the following code for Linked List reversal with the following functions.
 ```c
-#include <stdio.h>
-#include <stdlib.h>
-
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-struct Node* createNode(int val) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = val;
-    newNode->next = NULL;
-    return newNode;
-}
-
 void reverseLinkedList(struct Node** head) {
     struct Node* prev = NULL;
     struct Node* current = *head;
@@ -555,39 +479,6 @@ void reverseLinkedList(struct Node** head) {
     }
     *head = prev;
 }
-
-void printLinkedList(struct Node* head) {
-    while (head != NULL) {
-        printf("%d ", head->data);
-        head = head->next;
-    }
-    printf("\n");
-}
-
-int main() {
-    struct Node* head = createNode(1);
-    head->next = createNode(2);
-    head->next->next = createNode(3);
-    head->next->next->next = createNode(4);
-    head->next->next->next->next = createNode(5);
-
-    printf("Original Linked List: ");
-    printLinkedList(head);
-    reverseLinkedList(&head);
-    printf("Reversed Linked List: ");
-    printLinkedList(head);
-
-    // Free memory
-    struct Node* temp;
-    while (head != NULL) {
-        temp = head;
-        head = head->next;
-        free(temp);
-    }
-
-    return 0;
-}
-
 ```
 Which change reverses the linked list recursively instead of iteratively?
 1. Replace the reverseLinkedList function with a recursive version.
@@ -596,14 +487,102 @@ Which change reverses the linked list recursively instead of iteratively?
 4. Replace current->next = prev; with reverseLinkedList(current->next);
 
 ### Question 12:
+Go through the following code for binary search
+```c
+int binarySearch(int arr[], int low, int high, int target) {
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] < target)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return -1; 
+} 
+```
+Find the error if this code is run
+1. Change while `(low <= high)` to while `(low < high)`.
+2. Change `int mid = low + (high - low) / 2;` to `int mid = low + (high - low + 1) / 2;`.
+3. Change if `(arr[mid] < target)` to if `(arr[mid] <= target)`.
+4. Change `return -1;` to `return low`;.
 
 ### Question 13:
+In the following function `invalid` Checks if a given string has balanced parentheses, curly braces, and square brackets.
 
+`initialize`: Initializes a custom stack.
+`push`: Pushes a character onto the stack.
+`pop`: Pops the top character from the stack.
+`isEmpty`: Checks if the stack is empty.
+```c
+bool isValid(char* s) {
+    Stack stack;
+    initialize(&stack);
+
+    for (int i = 0; s[i] != '\0'; i++) {
+        char c = s[i];
+        if (c == '(' || c == '{' || c == '[') {
+            push(&stack, c);
+        } else {
+            if (isEmpty(&stack) || pop(&stack) != c) {
+                return false;
+            }
+        }
+    }
+    return isEmpty(&stack);
+}
+```
+ Choose the suitable option
+1. Incorrect condition in the first if block
+2. Incorrect condition in the second if block
+3. Incorrect condition in the last else if block 
+4. No Error
+
+`Ans`: 3
 ### Question 14:
+```c
+int main() {
+    int temp = 40;
+    
+    if (temp == 30 && temp / 0 == 4) {
+        printf("1\n");
+    } else {
+        printf("2\n");
+    }
 
+    return 0;
+}
+```
+1) 2 
+2) 1 
+3) Runtime Exception of java.lang.ArithimeticException 
+4) Compliation error due to divisibility by 0
+
+`Ans`: option 1.
 ### Question 15:
 
-
+```c
+int* twoSum(int* nums, int numsSize, int target) {
+    for (int i = 0; i < numsSize; i++) {
+        for (int j = i + 1; j < numsSize; j++) {
+            if (nums[i] + nums[j] == target) {
+                int* result = (int*)malloc(2 * sizeof(int));
+                result[0] = i;
+                result[1] = j;
+                return result;
+            }
+        }
+    }
+    return NULL;
+}
+```
+Choose the correct option 
+1. The condition in the first for loop
+2. The condition in the second for loop
+3. ArrayIndexOutOfBoundsException in the inner loop condition 
+4. No error introduced
+`Ans`: 3
 
 ### Resources:
 1. https://www.geeksforgeeks.org/common-memory-pointer-related-bug-in-c-programs/ - `s1`
