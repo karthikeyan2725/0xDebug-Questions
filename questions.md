@@ -420,11 +420,180 @@ void main(){
 
 ### Question 9:
 
+```c
+int finding_palindrome(int num){
+    int temp = num;
+    int result = 0;
+    while(num>0){
+        int rem = num % 10;
+        result = result + 10 * num;
+        num /= 10;
+    }
+    return (result == temp)? 1 : 0;
+}
 
+void main(){
+    printf("%d",finding_palindrome(1001));
+}
+```
+To make the above code work properly, how many changes has to be made.
+1. No error
+2. Three
+3. Two
+4. One
+
+`Ans`: 2
 
 ### Question 10:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_VERTICES 100
+
+struct Graph {
+    int V;
+    int** adj;
+};
+
+struct Graph* createGraph(int V) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->V = V;
+    graph->adj = (int**)malloc(V * sizeof(int*));
+    for (int i = 0; i < V; i++) {
+        graph->adj[i] = (int*)malloc(V * sizeof(int));
+        for (int j = 0; j < V; j++) {
+            graph->adj[i][j] = 0;
+        }
+    }
+    return graph;
+}
+
+void addEdge(struct Graph* graph, int u, int v) {
+    graph->adj[u][v] = 1;
+}
+
+void DFS(struct Graph* graph, int start) {
+    int* visited = (int*)malloc(graph->V * sizeof(int));
+    for (int i = 0; i < graph->V; i++) {
+        visited[i] = 0;
+    }
+
+    int* stack = (int*)malloc(graph->V * sizeof(int));
+    int top = -1;
+
+    stack[++top] = start;
+
+    while (top != -1) {
+        int current = stack[top--];
+
+        if (!visited[current]) {
+            printf("%d ", current);
+            visited[current] = 1;
+        }
+
+        for (int neighbor = 0; neighbor < graph->V; neighbor++) {
+            if (graph->adj[current][neighbor] && !visited[neighbor]) {
+                stack[++top] = neighbor;
+            }
+        }
+    }
+
+    free(visited);
+    free(stack);
+}
+
+int main() {
+    struct Graph* g = createGraph(4);
+
+    addEdge(g, 0, 1);
+    addEdge(g, 0, 2);
+    addEdge(g, 1, 2);
+    addEdge(g, 2, 0);
+    addEdge(g, 2, 3);
+    addEdge(g, 3, 3);
+
+    printf("Depth First Traversal (starting from vertex 2): ");
+    DFS(g, 2);
+
+    free(g);
+    return 0;
+}
+```
+1. Replace the stack with a queue .
+2. Change stack push to stack insert.
+3. Modify the DFS function to use recursion instead of a stack.
+4. Add an additional check to ensure the visited nodes are explored in a specific order.
 
 ### Question 11:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void reverseLinkedList(struct Node** head) {
+    struct Node* prev = NULL;
+    struct Node* current = *head;
+    struct Node* next = NULL;
+
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    *head = prev;
+}
+
+void printLinkedList(struct Node* head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+    head->next->next->next->next = createNode(5);
+
+    printf("Original Linked List: ");
+    printLinkedList(head);
+    reverseLinkedList(&head);
+    printf("Reversed Linked List: ");
+    printLinkedList(head);
+
+    // Free memory
+    struct Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}
+
+```
+Which change reverses the linked list recursively instead of iteratively?
+1. Replace the reverseLinkedList function with a recursive version.
+2. Replace while (current != nullptr) loop with a recursive function call.
+3. Modify the reverseLinkedList function to swap the head and tail nodes recursively.
+4. Replace current->next = prev; with reverseLinkedList(current->next);
 
 ### Question 12:
 
@@ -441,6 +610,6 @@ void main(){
 
 2. https://prepinsta.com/cognizant/code-debugging/ - `c1,c2,c3`
 
-3. Ariharan - `c4`
+3. Ariharan - `c4,c8,c9`
 
 4. karthikeyan P - `c5,c6,c7`
