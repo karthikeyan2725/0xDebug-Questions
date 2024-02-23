@@ -45,6 +45,7 @@ b) 1
 c) Compiler Error
 d) Undefined Behavior
 
+`Ans`: 1
 ### Question 7:
 The following Code snippet for the function `hasCycle`, uses hare-tortoise algorithm for detecting cycle in linked list. Read through the code carefully and select the option that is suitable.
 ```c
