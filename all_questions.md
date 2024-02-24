@@ -460,20 +460,27 @@ void reverseLinkedList(struct Node** head) {
     struct Node* next = NULL;
 
     while (current != NULL) {
-        next = current->next;
         current->next = prev;
-        prev = current;
         current = next;
+        next = current->next;
+        prev = current;
     }
     *head = prev;
 }
 ```
-Which change reverses the linked list recursively instead of iteratively?
-1. Replace the reverseLinkedList function with a recursive version.
-2. Replace while (current != nullptr) loop with a recursive function call.
-3. Modify the reverseLinkedList function to swap the head and tail nodes recursively.
-4. Replace current->next = prev; with reverseLinkedList(current->next);
 
+What must be the **order** of the lines inside the while loop must follow, to reverse the linked list.
+1. 8,7,10,9
+2. 9,7,10,8
+3. 7,10,9,8
+4. 9,7,8,10
+
+`ans`: 2
+
+    next = current->next; 9
+    current->next = prev; 7
+    prev = current; 10
+    current = next; 8
 ### Question 12:
 Go through the following code for binary search
 ```c
