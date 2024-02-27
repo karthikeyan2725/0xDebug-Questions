@@ -137,7 +137,7 @@ int Search(int a[], int start, int last, int item){
     if(last >= start){
         mid = (start + last)/2;
         if(a[mid] == item){
-                    return mid+1;
+            return mid;
         }
         else if(a[mid] < item){
             return Search(a,start,mid+1,item);
@@ -497,7 +497,6 @@ int binarySearch(int arr[], int low, int high, int target) {
     return -1; 
 } 
 ```
-Find the error if this code is run
 1. Change while `(low <= high)` to while `(low < high)`.
 2. Change `int mid = low + (high - low) / 2;` to `int mid = low + (high - low + 1) / 2;`.
 3. Change if `(arr[mid] < target)` to if `(arr[mid] <= target)`.

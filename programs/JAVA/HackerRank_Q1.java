@@ -1,0 +1,171 @@
+import java.lang.System;
+import java.lang.String;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class HackerRank {
+    static List<Integer> reverse(List<Integer> items) {
+        List<Integer> reversed = new ArrayList<>(items);
+        int size = items.size();
+        int temp;
+        for (int i = 0; i < (size / 2); i++) {
+            temp = reversed.get(i);
+            reversed.set(i, reversed.get(size - 1 - i));
+            reversed.set(size - 1 - i, temp);
+        }
+        return reversed;
+    }
+
+
+static List<Integer> remove_zeros(List<Integer> items) {
+    List<Integer> reversed = reverse(items);
+    int first = 0;
+    for (Integer item : reversed) {
+        if (item == 0) {
+            first += 1;
+        } else {
+            break;
+        }
+    }
+    return reversed.subList(first, reversed.size());
+}
+
+static List<Integer> add(List<Integer> poly1, List<Integer> poly2) {
+    int size1 = poly1.size();
+    int size2 = poly2.size();
+    int resultSize = Math.max(size1, size2);
+    //System.out.println("p1:"+poly1.size() + " p2:"+ poly2.size());
+    List<Integer> result = new ArrayList<>(resultSize);
+    int curr; 
+    for (int i = 0; i < resultSize; i++) {
+        curr = 0;
+        if (i < size1) {
+            curr += poly1.get(i);
+        }
+        if (i < size2) {
+            curr += poly2.get(i);
+        }
+        result.add(curr);
+    }
+    return result;
+}
+
+static List<List<Integer>> split(List<Integer> poly1, List<Integer> poly2) {
+    int size1 = poly1.size();
+    int size2 = poly2.size();
+    int mid = Math.max(size1, size2) / 2;
+
+    return Arrays.asList(
+            new ArrayList<>(poly1.subList(0, mid)),
+            new ArrayList<>(poly1.subList(mid, size1)),
+            new ArrayList<>(poly2.subList(0, mid)),
+            new ArrayList<>(poly2.subList(mid, size2))
+    );
+}
+
+static List<Integer> increase_exponent(List<Integer> poly, int n) {
+    int polySize = poly.size();
+    int maxSize = polySize + n;
+    List<Integer> result = new ArrayList<>(maxSize);
+    for (int i = 0; i < n; i++) {
+        result.add(0);
+    }
+    for (int i = n; i < maxSize; i++) {
+        result.add(poly.get(i - n));
+    }
+    return result;
+}
+
+static List<Integer> subtract(List<Integer> poly1, List<Integer> poly2) {
+    List<Integer> negPoly2 = new ArrayList<>(poly2);
+    for (int i = 0; i < negPoly2.size(); i++) {
+        negPoly2.set(i, -negPoly2.get(i));
+    }
+    return add(poly1, negPoly2);
+}
+
+public static void printArray(List<Integer> list){
+    for(int num:list){
+        System.out.print(num+",");
+    }
+}
+
+public static List<Integer> multiply_polynomial(List<Integer> poly1, List<Integer> poly2, int m, int n) {
+    System.out.println("Multiply Called");
+    List<Integer> result;
+    if (m == 0 || n == 0) {
+        return new ArrayList<Integer>();
+    }
+
+    if (m == 1) {
+        if (poly1.get(0) == 0) {
+            return Arrays.asList(0);
+        } else {
+            result = new ArrayList<>(poly2);
+            for (int i = 0; i < result.size(); i++) {
+                result.set(i, poly1.get(0) * result.get(i));
+            }
+            return result;
+        }
+    }
+
+    else if (n == 1) {
+        if (poly2.get(0) == 0) {
+            return Arrays.asList(0);
+        } else {
+            result = new ArrayList<>(poly1);
+            for (int i = 0; i < result.size(); i++) {
+                result.set(i, poly2.get(0) * result.get(i));
+            }
+            return result;
+        }
+    }
+    
+    n = Math.max(m, n);
+
+    List<List<Integer>> splitted = split(poly1, poly2);
+    List<Integer> A0 = splitted.get(0);
+    List<Integer> A1 = splitted.get(1);
+    List<Integer> B0 = splitted.get(2);
+    List<Integer> B1 = splitted.get(3);
+
+    System.out.println("\nSplitted Each Array into 2:");
+    for (List<Integer> arr : splitted) {
+        System.out.println(arr);
+    }
+    List<Integer> addA = add(A0, A1);
+    List<Integer> addB = add(B0, B1);
+     
+    //Testing
+    System.out.println("AddA:"+addA);
+    System.out.println("AddB:"+addB);
+
+
+
+    List<Integer> Y = multiply_polynomial(addA, addB, addA.size(), addB.size());
+    List<Integer> U = multiply_polynomial(A0, B0, A0.size(), B0.size());
+    List<Integer> Z = multiply_polynomial(A1, B1, A1.size(), B1.size());
+
+    //Testing
+    System.out.println("Y:"+Y);
+    System.out.println("U:"+U);
+    System.out.println("Z:"+Z);
+    System.out.println("U+Z: "+add(U,Z));
+
+    Y = increase_exponent(subtract(Y, add(U, Z)),n/2);
+    Z = increase_exponent(Z, n);
+
+   
+    result = add(Y, add(U, Z));
+    result = remove_zeros(result);
+    //Testing
+    System.out.println("New Y (Y-(U+Z)): "+Y);
+    System.out.println("New Z: "+Z);
+    System.out.println("New U+Z: "+add(U,Z));
+    System.out.println("Returning (Y+U+Z): "+result);
+    return reverse(result);
+}
+}
